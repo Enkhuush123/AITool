@@ -1,16 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { BsSend } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
-
-export const ChatCart = () => {
+import { FC } from "react";
+interface ChatCartProps {
+  onClose: () => void;
+}
+export const ChatCart: FC<ChatCartProps> = ({ onClose }) => {
   return (
-    <div className="w-[380px] h-[472px] border rounded-md ">
+    <div className=" absolute w-[380px] h-[472px] shadow-xl border z-50 rounded-md ">
       <div className="border-b flex justify-between p-2  gap-2 items-center ">
         <div>
           {" "}
           <p>Chat assistant</p>
         </div>
-        <Button className="bg-none">
+        <Button onClick={onClose} className="bg-none">
           <IoIosClose />
         </Button>
       </div>

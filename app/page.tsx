@@ -9,8 +9,26 @@ import { ChatIcon } from "./icons/chatIcon";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChatCart } from "./components/chatCart";
+import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineRefresh } from "react-icons/md";
+
 export default function Home() {
-  const [chat, setChat] = useState(false);
+  const [chat, setChat] = useState<boolean>(false);
+
+  const [image, setImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+  const handleDelete = () => {
+    setImage(null);
+    setPreview(null);
+  };
 
   return (
     <div className="flex gap-5 flex-col w-full m-auto ">
@@ -33,8 +51,8 @@ export default function Home() {
                     <StarIcon />{" "}
                     <p className="font-semibold text-xl">Image analysis</p>
                   </div>
-                  <Button className="w-12 h-10 border flex justify-center items-center">
-                    <RefreshIcon />
+                  <Button className="w-12 h-10 border flex justify-center items-center ">
+                    <MdOutlineRefresh />
                   </Button>
                 </div>
                 <div>
@@ -43,20 +61,40 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex gap-2 flex-col">
-                  <Label htmlFor="image">
-                    <div className="border p-3 rounded-lg w-full">
-                      <p>
-                        Choose File{" "}
-                        <span className="text-neutral-400">JPG, PNG</span>
-                      </p>
-                      <input
-                        accept="*/image"
-                        type="file"
-                        id="image"
-                        className="hidden"
-                      ></input>
+                  {preview ? (
+                    <div className="w-52 h-[141px] relative ">
+                      <div className="w-full h-full absolute justify-end flex items-end p-2">
+                        <Button
+                          onClick={handleDelete}
+                          className="w-6 h-6  rounded-md items-center justify-center flex cursor-pointer "
+                        >
+                          <MdDeleteOutline />
+                        </Button>
+                      </div>
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      ></img>
                     </div>
-                  </Label>
+                  ) : (
+                    <Label htmlFor="image">
+                      <div className="border p-3 rounded-lg w-full cursor-pointer">
+                        <p>
+                          Choose File{"-"}
+                          <span className="text-neutral-400">JPG, PNG</span>
+                        </p>
+                        <input
+                          accept="*/image"
+                          type="file"
+                          id="image"
+                          className="hidden"
+                          onChange={handleUploadImage}
+                        ></input>
+                      </div>
+                    </Label>
+                  )}
+
                   <div className="flex justify-end">
                     <Button className="w-[94px] h-10 bg-neutral-700 rounded-md ">
                       <p className="text-white">Generate</p>
@@ -86,7 +124,7 @@ export default function Home() {
                     </p>
                   </div>
                   <Button className="w-12 h-10 border flex justify-center items-center">
-                    <RefreshIcon />
+                    <MdOutlineRefresh />
                   </Button>
                 </div>
                 <div>
@@ -125,7 +163,7 @@ export default function Home() {
                     <p className="font-semibold text-xl">Food image creator</p>
                   </div>
                   <Button className="w-12 h-10 border flex justify-center items-center">
-                    <RefreshIcon />
+                    <MdOutlineRefresh />
                   </Button>
                 </div>
                 <div>
@@ -154,16 +192,19 @@ export default function Home() {
           </TabsContent>
         </Tabs>
       </div>
-      <div className="flex justify-end p-10 w-full h-[750px] items-end">
-        <Button
-          onClick={() => setChat(true)}
-          className={`w-12 h-12 bg-black flex rounded-full  ${
-            chat ? "hidden" : "block"
-          }`}
-        >
-          <ChatIcon />
-        </Button>
-        {chat && <ChatCart />}
+      <div className="fixed bottom-5 right-1 flex justify-end p-10 items-end z-50">
+        {!chat && (
+          <Button
+            onClick={() => setChat(true)}
+            className={`w-12 h-12 bg-black flex rounded-full  
+             
+            }`}
+          >
+            <ChatIcon />
+          </Button>
+        )}
+
+        {chat && <ChatCart onClose={() => setChat(false)} />}
       </div>
     </div>
   );
