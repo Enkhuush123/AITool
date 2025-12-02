@@ -13,7 +13,7 @@ export default function Home() {
   const [chat, setChat] = useState(false);
 
   return (
-    <div className="flex gap-5 flex-col w-full m-auto h-[1000px]">
+    <div className="flex gap-5 flex-col w-full m-auto ">
       <div className="w-full h-14 flex items-center m-auto border pl-12">
         <h1>AI tools</h1>
       </div>
@@ -154,7 +154,7 @@ export default function Home() {
           </TabsContent>
         </Tabs>
       </div>
-      <div className="flex justify-end p-5">
+      <div className="flex justify-end p-10 w-full h-[750px] items-end">
         <Button
           onClick={() => setChat(true)}
           className={`w-12 h-12 bg-black flex rounded-full  ${
