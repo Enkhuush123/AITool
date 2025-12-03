@@ -22,7 +22,7 @@ export const POST = async (request: NextRequest) => {
       data: image,
     })) as DetectionResult[];
     const objects = results
-      .filter((obj) => obj.score > 0.5)
+      .filter((obj) => obj.score > 0.1)
       .map((obj) => ({ label: obj.label, score: obj.score, box: obj.box }));
 
     return NextResponse.json({ objects });

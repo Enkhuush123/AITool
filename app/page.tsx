@@ -12,6 +12,8 @@ import { ChatCart } from "./components/chatCart";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineRefresh } from "react-icons/md";
 import { ImageAnalysis } from "./components/imageAnalysis";
+import { IngredientsRec } from "./components/ingredientsRec";
+import { ImageCreator } from "./components/imageCreator";
 
 export default function Home() {
   const [chat, setChat] = useState<boolean>(false);
@@ -33,81 +35,10 @@ export default function Home() {
             <ImageAnalysis />
           </TabsContent>
           <TabsContent value="ingredient">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <StarIcon />{" "}
-                    <p className="font-semibold text-xl">
-                      Ingredient recognition
-                    </p>
-                  </div>
-                  <Button className="w-12 h-10 border flex justify-center items-center">
-                    <MdOutlineRefresh />
-                  </Button>
-                </div>
-                <div>
-                  <p className="font-normal text-sm text-neutral-400">
-                    Describe the food, and AI will detect the ingredients.
-                  </p>
-                </div>
-                <div className="flex gap-2 flex-col">
-                  <textarea className="border p-2 rounded-lg w-full h-[124px]"></textarea>
-                  <div className="flex justify-end">
-                    <Button className="w-[94px] h-10 bg-neutral-700 rounded-md ">
-                      <p className="text-white">Generate</p>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-2 items-center">
-                  <DocumentIcon />{" "}
-                  <p className="font-semibold text-xl">
-                    Identified Ingredients
-                  </p>
-                </div>
-                <p className="font-normal text-sm text-neutral-400">
-                  First, enter your text to recognize an ingredients.
-                </p>
-              </div>
-            </div>
+            <IngredientsRec />
           </TabsContent>
           <TabsContent value="creator">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <StarIcon />{" "}
-                    <p className="font-semibold text-xl">Food image creator</p>
-                  </div>
-                  <Button className="w-12 h-10 border flex justify-center items-center">
-                    <MdOutlineRefresh />
-                  </Button>
-                </div>
-                <div>
-                  <p className="font-normal text-sm text-neutral-400">
-                    What food image do you want? Describe it briefly.
-                  </p>
-                </div>
-                <div className="flex gap-2 flex-col">
-                  <textarea className="border p-2 rounded-lg w-full h-[124px]"></textarea>
-                  <div className="flex justify-end">
-                    <Button className="w-[94px] h-10 bg-neutral-700 rounded-md ">
-                      <p className="text-white">Generate</p>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flex gap-2 items-center">
-                  <ImageIcon /> <p className="font-semibold text-xl">Result</p>
-                </div>
-                <p className="font-normal text-sm text-neutral-400">
-                  First, enter your text to generate an image.
-                </p>
-              </div>
-            </div>
+            <ImageCreator />
           </TabsContent>
         </Tabs>
       </div>
