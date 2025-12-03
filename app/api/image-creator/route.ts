@@ -13,16 +13,14 @@ export const POST = async (req: NextRequest) => {
         { status: 400 }
       );
 
-    // text-to-image
     const result = await client.textToImage({
       model: "stabilityai/stable-diffusion-xl-base-1.0",
       inputs: prompt,
 
-      binary: true, // binary=True гэдэг нь Blob / Uint8Array буцаана гэсэн утгатай
+      binary: true,
     });
 
-    // result нь Uint8Array буюу Blob байж магад
-    const arrayBuffer = await result.arrayBuffer(); // хэрэв result нь Blob бол
+    const arrayBuffer = await result.arrayBuffer();
     const base64 = Buffer.from(arrayBuffer).toString("base64");
 
     return NextResponse.json({ image: `data:image/png;base64,${base64}` });
