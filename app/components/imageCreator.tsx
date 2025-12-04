@@ -83,8 +83,8 @@ export const ImageCreator = () => {
             </div>
           </div>
         ) : image ? (
-          <div className="p-2 border ">
-            {prompt}
+          <div className="p-2 border flex gap-2 flex-col ">
+            <p>{prompt} : </p>
             <img
               src={image}
               alt="Generated"

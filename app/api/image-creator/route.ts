@@ -14,16 +14,19 @@ export const POST = async (req: NextRequest) => {
       );
 
     const result = await client.textToImage({
-      model: "stabilityai/stable-diffusion-xl-base-1.0",
+      provider: "nscale",
+      model: "runwayml/stable-diffusion-v1-5",
       inputs: prompt,
 
       binary: true,
     });
 
-    const arrayBuffer = await result.arrayBuffer();
+    const blob = result as unknown as Blob;
+    const arrayBuffer = await blob.arrayBuffer();
     const base64 = Buffer.from(arrayBuffer).toString("base64");
+    const dataUrl = `data:image/png;base64,${base64}`;
 
-    return NextResponse.json({ image: `data:image/png;base64,${base64}` });
+    return NextResponse.json({ image: dataUrl });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Error" },

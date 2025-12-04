@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="flex gap-5 flex-col w-full m-auto ">
       <div className="w-full h-14 flex items-center m-auto border pl-12">
-        <h1>AI tools</h1>
+        <h1> Enkhuush's AI tools</h1>
       </div>
 
       <div className="w-[580px] m-auto">
