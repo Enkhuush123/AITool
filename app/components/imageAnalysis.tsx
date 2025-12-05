@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
-import { RefreshCw, StarIcon } from "lucide-react";
+import { Loader, RefreshCw, StarIcon } from "lucide-react";
 import { useState } from "react";
 import { MdDeleteOutline, MdOutlineRefresh } from "react-icons/md";
 import { DocumentIcon } from "../icons/document";
@@ -118,9 +118,12 @@ export const ImageAnalysis = () => {
           <DocumentIcon />{" "}
           <p className="font-semibold text-xl">Here is the summary</p>
         </div>
-        {image ? (
-          <div className="w-full h-10 border p-2 items-center text-neutral-400">
-            {!isGenerate ? <p>{result}</p> : <p>Working...</p>}
+        {isGenerate ? (
+          <div>
+            <p>Im working on image wait for moment...</p>
+            <div>
+              <Loader className="w-4 h-4 animate-spin" />
+            </div>
           </div>
         ) : (
           <p className="text-neutral-400">
