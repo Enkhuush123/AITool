@@ -78,7 +78,7 @@ export const IngredientsRec = () => {
         </div>
 
         {loading ? (
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-col">
             <p>Working on your image just wait for moment...</p>
             <div className="flex justify-center items-center">
               {" "}
