@@ -11,7 +11,14 @@ export const ImageAnalysis = () => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isGenerate, setIsGenerate] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState<{ label: string; score: number }[]>([]);
+
+  const resetFunction = () => {
+    setImage(null);
+    setPreview(null);
+    setResult([]);
+    setIsGenerate(false);
+  };
 
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,8 +46,12 @@ export const ImageAnalysis = () => {
     console.log(data, "result");
 
     setResult(
-      `${data.objects.map((cur: { label: string }) => cur.label).join(",")}`
+      data.objects.map((cur: { label: string; score: number }) => ({
+        label: cur.label,
+        score: cur.score,
+      }))
     );
+
     setIsGenerate(false);
   };
 
@@ -51,7 +62,10 @@ export const ImageAnalysis = () => {
           <div className="flex items-center gap-2">
             <StarIcon /> <p className="font-semibold text-xl">Image analysis</p>
           </div>
-          <Button className="w-12 h-10 border flex justify-center items-center ">
+          <Button
+            onClick={resetFunction}
+            className="w-12 cursor-pointer h-10 border flex justify-center items-center "
+          >
             <MdOutlineRefresh />
           </Button>
         </div>
@@ -130,7 +144,15 @@ export const ImageAnalysis = () => {
           </div>
         ) : image ? (
           <div className="w-full border p-2">
-            <p className="text-neutral-400">{result}</p>
+            <p className="text-neutral-400">Detected Ingredients</p>
+            <div className="flex flex-col gap-2">
+              {result.map((item, idx) => (
+                <div key={idx}>
+                  <span>{item.label}</span> {"=>"}{" "}
+                  <span>{(item.score * 100).toFixed(0)}%</span>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-neutral-400">

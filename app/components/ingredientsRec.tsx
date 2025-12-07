@@ -30,6 +30,11 @@ export const IngredientsRec = () => {
     }
     setLoading(false);
   };
+  const resetFunction = () => {
+    setText("");
+    setIngredients([]);
+    setLoading(false);
+  };
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3">
@@ -38,7 +43,10 @@ export const IngredientsRec = () => {
             <StarIcon />{" "}
             <p className="font-semibold text-xl">Ingredient recognition</p>
           </div>
-          <Button className="w-12 h-10 border flex justify-center items-center">
+          <Button
+            onClick={resetFunction}
+            className="w-12 cursor-pointer h-10 border flex justify-center items-center"
+          >
             <MdOutlineRefresh />
           </Button>
         </div>
