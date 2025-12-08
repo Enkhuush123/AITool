@@ -90,7 +90,7 @@ export const ChatCart: FC<ChatCartProps> = ({ onClose }) => {
 
         <div ref={messageEndRef} />
       </div>
-      <div className="flex gap-3 justify-center p-1 items-center">
+      <div className="flex gap-3 justify-center p-5 items-center">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}

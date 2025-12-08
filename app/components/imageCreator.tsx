@@ -8,6 +8,12 @@ export const ImageCreator = () => {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const resetFunction = () => {
+    setPrompt("");
+    setImage(null);
+    setLoading(false);
+  };
+
   const handleGenerate = async () => {
     if (!prompt) return;
     setLoading(true);
@@ -36,7 +42,10 @@ export const ImageCreator = () => {
             <StarIcon />{" "}
             <p className="font-semibold text-xl">Food image creator</p>
           </div>
-          <Button className="w-12 h-10 border flex justify-center items-center">
+          <Button
+            onClick={resetFunction}
+            className="w-12 h-10 border flex justify-center items-center"
+          >
             <MdOutlineRefresh />
           </Button>
         </div>
@@ -49,6 +58,7 @@ export const ImageCreator = () => {
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
             className="border p-2 rounded-lg w-full h-[124px]"
           ></textarea>
           <div className="flex justify-end">

@@ -58,6 +58,7 @@ export const IngredientsRec = () => {
         <div className="flex gap-2 flex-col">
           <textarea
             onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
             value={text}
             className="border p-2 rounded-lg w-full h-[124px]"
           ></textarea>

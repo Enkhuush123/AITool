@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
 
     const result = await client.textToImage({
       provider: "nscale",
-      model: "runwayml/stable-diffusion-v1-5",
+      model: "stabilityai/stable-diffusion-xl-base-1.0",
       inputs: prompt,
 
       binary: true,

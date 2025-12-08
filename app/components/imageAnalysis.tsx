@@ -104,6 +104,7 @@ export const ImageAnalysis = () => {
                   id="image"
                   className="hidden"
                   onChange={handleUploadImage}
+                  onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
                 ></input>
               </div>
             </Label>
