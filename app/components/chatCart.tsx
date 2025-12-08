@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { BsSend } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { FC, useEffect, useRef, useState } from "react";
+import ReactMarkDown from "react-markdown";
+import remarkGfm from "remark-gfm";
 interface ChatCartProps {
   onClose: () => void;
 }
@@ -82,7 +84,13 @@ export const ChatCart: FC<ChatCartProps> = ({ onClose }) => {
                 : "bg-black text-white mr-auto"
             }`}
           >
-            {msg.text}
+            {msg.from === "bot" ? (
+              <ReactMarkDown remarkPlugins={[remarkGfm]}>
+                {msg.text}
+              </ReactMarkDown>
+            ) : (
+              msg.text
+            )}
           </div>
         ))}
 

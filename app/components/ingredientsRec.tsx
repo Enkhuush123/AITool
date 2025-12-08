@@ -9,6 +9,8 @@ export const IngredientsRec = () => {
   const [text, setText] = useState("");
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleGenerate = async () => {
     if (!text.trim()) return;
@@ -22,8 +24,10 @@ export const IngredientsRec = () => {
       });
       const data = await res.json();
       console.log(data);
-      if (data.ingredients) {
-        setIngredients(data.ingredients);
+      if (data) {
+        setTitle(data.title || "");
+        setDescription(data.description || "");
+        setIngredients(data.ingredients || []);
       }
     } catch (err) {
       console.log("Error");
@@ -34,6 +38,8 @@ export const IngredientsRec = () => {
     setText("");
     setIngredients([]);
     setLoading(false);
+    setDescription("");
+    setTitle("");
   };
   return (
     <div className="flex flex-col gap-6">
@@ -94,13 +100,18 @@ export const IngredientsRec = () => {
               <Loader className="w-4 h-4 animate-spin" />
             </div>
           </div>
-        ) : ingredients && ingredients.length > 0 ? (
-          <div className="w-full border  p-2 items-center ">
-            {ingredients.map((item, idx) => (
-              <div className="flex items-center" key={idx}>
-                <LuDot /> {item}
-              </div>
-            ))}
+        ) : ingredients.length > 0 ? (
+          <div className="w-full border  p-2 flex flex-col gap-5 ">
+            <h2 className="font-semibold text-xl">{title}</h2>
+            <p className="text-neutral-400">{description}</p>
+            <div>
+              {" "}
+              {ingredients.map((item, idx) => (
+                <div className="flex items-center" key={idx}>
+                  <LuDot /> {item}
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-neutral-400">

@@ -16,7 +16,19 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: message }] }],
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text:
+                "Please answer in clean, structured Markdwon format." +
+                "Use clear titles (##), bullet points, and short paragraphs.\n\n" +
+                message,
+            },
+          ],
+        },
+      ],
     });
 
     const reply =
